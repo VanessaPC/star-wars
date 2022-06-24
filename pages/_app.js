@@ -1,10 +1,16 @@
+import { QueryClientProvider, QueryClient } from "react-query";
 import { GlobalStyle } from "../styles/global";
+
+// Create a client
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
     </>
   );
 }

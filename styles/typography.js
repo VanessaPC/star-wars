@@ -111,7 +111,7 @@ export const typography = css`
     font-size: 1rem;
     line-height: 1.25rem;
     background: inherit;
-    border: none;
+    border: 1px solid #333;
     &:focus {
       outline: none;
     }
