@@ -1,16 +1,18 @@
 import { QueryClientProvider, QueryClient } from "react-query";
 import { GlobalStyle } from "../styles/global";
+import { UserSelectionProvider } from "../providers/characterProvider";
 
-// Create a client
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
-      </QueryClientProvider>
+      <UserSelectionProvider>
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+        </QueryClientProvider>
+      </UserSelectionProvider>
     </>
   );
 }

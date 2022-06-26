@@ -4,6 +4,6 @@ function searchPlanets(planetUrl) {
   return fetch(planetUrl).then((response) => response.json());
 }
 
-export const usePlanet = (planetUrl) => {
+export const useQueryPlanet = (planetUrl) => {
   return useQuery(["people", planetUrl], () => searchPlanets(planetUrl));
 };

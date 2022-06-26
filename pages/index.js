@@ -1,13 +1,31 @@
 import Head from "next/head";
+import { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+import { useInfiniteQuery } from "react-query";
+
 import styles from "../styles/Home.module.css";
-import { useState } from "react";
-import { useSearchPeople } from "../hooks/useSearchPeople";
-import { Character } from "../components/Character";
+import { queryPagesPeople } from "../hooks/useQuerySearchPeople";
+import { Card } from "../components/Card";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
-  const { isLoading, data } = useSearchPeople(searchTerm);
-  console.log("data", data);
+  const { _, inView } = useInView();
+
+  const { isLoading, error, data, fetchNextPage } = useInfiniteQuery(
+    "people",
+    queryPagesPeople,
+    {
+      getNextPageParam: (lastPage) => {
+        return lastPage.next;
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView]);
 
   return (
     <div className={styles.container}>
@@ -24,10 +42,21 @@ export default function Home() {
           onChange={(e) => setSearchTerm(e.target.value.trim())}
         />
 
-        {data &&
-          data.results.map((character) => (
-            <Character key={character.url} character={character} />
-          ))}
+        {isLoading ? (
+          <p>Loading </p>
+        ) : error ? (
+          <p>Error here {error}</p>
+        ) : (
+          <>
+            {data.pages.map((group, i) => (
+              <>
+                {group.results.map((character) => (
+                  <Card key={character.url} character={character} />
+                ))}
+              </>
+            ))}
+          </>
+        )}
       </main>
     </div>
   );
