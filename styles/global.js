@@ -1,9 +1,7 @@
 import { createGlobalStyle } from "styled-components";
-import { colors } from "./colors";
 import { typography } from "./typography";
 
 export const GlobalStyle = createGlobalStyle`
-${colors};
 ${typography};
 
 @font-face {
@@ -41,13 +39,19 @@ ${typography};
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     }
 
+    body{ 
+      background: ${({ theme }) => theme.colors.bgColor};
+      color: ${({ theme }) => theme.colors.text};
+      transition: all 0.40s linear;
+    }
+
     a {
-    color: inherit;
-    text-decoration: none;
+      color: ${({ theme }) => theme.colors.linkcColor};
+      text-decoration: none;
     }
 
     * {
-    box-sizing: border-box;
+      box-sizing: border-box;
     }
 
 `;

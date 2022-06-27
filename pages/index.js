@@ -3,17 +3,37 @@ import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "react-query";
 
-import styles from "../styles/Home.module.css";
+import { BsLightbulbFill, BsLightbulb } from "react-icons/bs";
+
 import { queryPagesPeople } from "../hooks/useQuerySearchPeople";
 import { Card } from "../components/Card";
+import { HeroImage } from "../components/HeroImage";
+import dashboardImage from "../styles/img/starwars.jpg";
 
-export default function Home() {
+import {
+  Container,
+  SearchContainer,
+  SearchInput,
+  ContainerInput,
+  ResultContainer,
+  ToggleContainer,
+  ToggleButton,
+} from "./index_styles";
+
+export default function Home({ actionToggleTheme, isDarkTheme }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const { _, inView } = useInView();
+  const { ref, inView } = useInView();
 
-  const { isLoading, error, data, fetchNextPage } = useInfiniteQuery(
-    "people",
-    queryPagesPeople,
+  const {
+    isLoading,
+    error,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery(
+    ["people", searchTerm],
+    (queryContext) => queryPagesPeople(queryContext, searchTerm),
     {
       getNextPageParam: (lastPage) => {
         return lastPage.next;
@@ -25,39 +45,67 @@ export default function Home() {
     if (inView) {
       fetchNextPage();
     }
-  }, [inView]);
+  }, [fetchNextPage, inView]);
+
+  console.log("here is the data", data && data.results);
 
   return (
-    <div className={styles.container}>
+    <Container>
       <Head>
         <title>Star Wars</title>
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to Star Wars Universe</h1>
+      <main>
+        {/** This could be a different component a SearchComponent */}
+        <SearchContainer>
+          <HeroImage src={dashboardImage} alt="" />
+          <ContainerInput>
+            <SearchInput
+              type="text"
+              value={searchTerm}
+              placeholder="Search your Star Wars character"
+              onChange={(e) => setSearchTerm(e.target.value.trim())}
+            />
+          </ContainerInput>
+        </SearchContainer>
 
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value.trim())}
-        />
+        {/** can i move this to another component? */}
+        <ToggleContainer>
+          <ToggleButton onClick={actionToggleTheme}>
+            {isDarkTheme === true ? (
+              <BsLightbulb fontSize="15px" />
+            ) : (
+              <BsLightbulbFill fontSize="15px" />
+            )}
+          </ToggleButton>
+        </ToggleContainer>
 
         {isLoading ? (
-          <p>Loading </p>
+          <p>Loading</p>
         ) : error ? (
-          <p>Error here {error}</p>
+          <p>There has been an error</p>
         ) : (
-          <>
-            {data.pages.map((group, i) => (
-              <>
-                {group.results.map((character) => (
-                  <Card key={character.url} character={character} />
-                ))}
-              </>
-            ))}
-          </>
+          <ResultContainer>
+            {data.pages.map((group, i) =>
+              group.results.map((character) => (
+                <Card key={character.url} character={character} />
+              ))
+            )}
+          </ResultContainer>
         )}
+
+        <button
+          ref={ref}
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          {isFetchingNextPage
+            ? "Loading more..."
+            : hasNextPage
+            ? "Load Newer"
+            : "Nothing more to load"}
+        </button>
       </main>
-    </div>
+    </Container>
   );
 }
