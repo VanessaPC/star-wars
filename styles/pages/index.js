@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TABLET, PHONE } from "../styles/queries";
+import { TABLET, PHONE } from "../queries";
 
 export const Container = styled.div`
   margin: 0;
@@ -49,4 +49,11 @@ export const ResultContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr;
   }
+`;
+
+export const LoadingButton = styled.button`
+  border: 0;
+  background: none;
+  color: ${({ theme }) => theme.colors.secondary};
+  font-size: 18px;
 `;

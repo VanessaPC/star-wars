@@ -14,7 +14,8 @@ import {
   ResultContainer,
   ToggleContainer,
   ToggleButton,
-} from "./styles";
+  LoadingButton,
+} from "../styles/pages";
 
 export default function Home({ actionToggleTheme, isDarkTheme }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -52,7 +53,6 @@ export default function Home({ actionToggleTheme, isDarkTheme }) {
       <main>
         <Search setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
 
-        {/** can i move this to another component? */}
         <ToggleContainer>
           <ToggleButton onClick={actionToggleTheme}>
             {isDarkTheme === true ? (
@@ -77,7 +77,7 @@ export default function Home({ actionToggleTheme, isDarkTheme }) {
           </ResultContainer>
         )}
 
-        <button
+        <LoadingButton
           ref={ref}
           onClick={() => fetchNextPage()}
           disabled={!hasNextPage || isFetchingNextPage}
@@ -87,7 +87,7 @@ export default function Home({ actionToggleTheme, isDarkTheme }) {
             : hasNextPage
             ? "Load Newer"
             : "Nothing more to load"}
-        </button>
+        </LoadingButton>
       </main>
     </Container>
   );

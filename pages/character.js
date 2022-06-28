@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { UserSelection } from "../providers/characterProvider";
-import { useQuerySearchCharacterFilms } from "../hooks/useQueryFilms";
-import { truncate, descendentSort } from "../helpers";
+import { UserSelection } from "../../providers/characterProvider";
+import { useQuerySearchCharacterFilms } from "../../hooks/useQueryFilms";
+import { truncate, descendentSort } from "../../helpers";
 import {
   Container,
   InformationContainer,
   TableContainer,
-} from "./character_styles";
+} from "../../styles/pages/character";
 
 export default function Character() {
   const [state] = useContext(UserSelection);
@@ -30,7 +30,7 @@ export default function Character() {
       {results &&
         descendentSort(results).map((filmResult) => {
           if (filmResult.status === "loading") return <p>Loading...</p>;
-          if (filmResult.status === "error") return <p> Error: {error}</p>;
+          if (filmResult.status === "error") return <p> Error:</p>;
 
           const film = filmResult.data;
 
