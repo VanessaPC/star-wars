@@ -23,7 +23,10 @@ export const typography = css`
 
   h1,
   h2,
-  h3,
+  h3 {
+    color: ${({ theme }) => theme.colors.headersColor};
+  }
+
   h4,
   h5,
   h6,
@@ -34,6 +37,7 @@ export const typography = css`
       font-weight: lighter;
     }
   }
+
   /* h1 */
   h1 {
     font-family: "${VALUE_SERIF}";

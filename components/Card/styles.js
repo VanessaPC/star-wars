@@ -8,7 +8,7 @@ export const Container = styled.div`
 
 export const MoreButton = styled.button`
   border: 0;
-  background: ${({ theme }) => theme.colors.linkColor};
+  background: ${({ theme }) => theme.colors.secondary_05};
   width: 100px;
   height: 45px;
   border-radius: 3px;
@@ -16,7 +16,7 @@ export const MoreButton = styled.button`
   margin: 5px 0;
 
   &:hover {
-    background: ${({ theme }) => theme.colors.linkColorHover};
+    background: ${({ theme }) => theme.colors.secondary};
     transition: all 0.4s ease-in-out;
   }
 
@@ -28,7 +28,8 @@ export const MoreButton = styled.button`
 export const CharacterInformation = styled.div`
   display: flex;
   align-items: center;
+
   svg {
-    margin: 4px 0;
+    margin: 0 4px;
   }
 `;

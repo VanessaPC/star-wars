@@ -7,18 +7,14 @@ import { BsLightbulbFill, BsLightbulb } from "react-icons/bs";
 
 import { queryPagesPeople } from "../hooks/useQuerySearchPeople";
 import { Card } from "../components/Card";
-import { HeroImage } from "../components/HeroImage";
-import dashboardImage from "../styles/img/starwars.jpg";
+import { Search } from "../components/Search";
 
 import {
   Container,
-  SearchContainer,
-  SearchInput,
-  ContainerInput,
   ResultContainer,
   ToggleContainer,
   ToggleButton,
-} from "./index_styles";
+} from "./styles";
 
 export default function Home({ actionToggleTheme, isDarkTheme }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,8 +43,6 @@ export default function Home({ actionToggleTheme, isDarkTheme }) {
     }
   }, [fetchNextPage, inView]);
 
-  console.log("here is the data", data && data.results);
-
   return (
     <Container>
       <Head>
@@ -56,18 +50,7 @@ export default function Home({ actionToggleTheme, isDarkTheme }) {
       </Head>
 
       <main>
-        {/** This could be a different component a SearchComponent */}
-        <SearchContainer>
-          <HeroImage src={dashboardImage} alt="" />
-          <ContainerInput>
-            <SearchInput
-              type="text"
-              value={searchTerm}
-              placeholder="Search your Star Wars character"
-              onChange={(e) => setSearchTerm(e.target.value.trim())}
-            />
-          </ContainerInput>
-        </SearchContainer>
+        <Search setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
 
         {/** can i move this to another component? */}
         <ToggleContainer>

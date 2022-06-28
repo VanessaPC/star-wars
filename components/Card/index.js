@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { useRouter } from "next/router";
+import { ThemeContext } from "styled-components";
 import { GiAnimalSkull, GiWorld } from "react-icons/gi";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { useQueryPlanet } from "../../hooks/useQueryPlanet";
@@ -10,6 +11,7 @@ import { Container, MoreButton, CharacterInformation } from "./styles";
 
 export function Card({ character }) {
   const [, dispatch] = useContext(UserSelection);
+  const theme = useContext(ThemeContext);
 
   const { isLoading: planetLoading, data: planetData } = useQueryPlanet(
     character.homeworld
@@ -38,15 +40,15 @@ export function Card({ character }) {
       <h3>{character.name}</h3>
       <>
         <CharacterInformation>
-          <GiAnimalSkull />
+          <GiAnimalSkull fill={theme.colors.themeHighlight} />
           <span>Species: {speciesData && speciesData.name}</span>
         </CharacterInformation>
         <CharacterInformation>
-          <GiWorld />
-          <span>Homeworld : {planetData && planetData.name}</span>
+          <GiWorld fill={theme.colors.themeHighlight} />
+          <span>Homeworld: {planetData && planetData.name}</span>
         </CharacterInformation>
         <CharacterInformation>
-          <BsFillPeopleFill />
+          <BsFillPeopleFill fill={theme.colors.themeHighlight} />
           <span>Population: {planetData && planetData?.population}</span>
         </CharacterInformation>
       </>

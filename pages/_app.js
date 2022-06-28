@@ -5,10 +5,6 @@ import { GlobalStyle } from "../styles/global";
 import { darkTheme, lightTheme } from "../styles/themes";
 import { UserSelectionProvider } from "../providers/characterProvider";
 
-// Remove here this
-// import { library, dom } from "@fortawesome/fontawesome-svg-core";
-// import { faUserAstronaut } from "@fortawesome/free-solid-svg-icons";
-
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
@@ -17,10 +13,6 @@ function MyApp({ Component, pageProps }) {
   const actionToggleTheme = () => {
     toggleTheme(!isDarkTheme);
   };
-  console.log("isDarkTheme", isDarkTheme);
-
-  // library.add(faUserAstronaut);
-  // dom.watch();
 
   return (
     <>
