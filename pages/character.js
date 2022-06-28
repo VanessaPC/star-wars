@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { UserSelection } from "../../providers/characterProvider";
-import { useQuerySearchCharacterFilms } from "../../hooks/useQueryFilms";
-import { truncate, descendentSort } from "../../helpers";
+import { UserSelection } from "../providers/characterProvider";
+import { useQuerySearchCharacterFilms } from "../hooks/useQueryFilms";
+import { truncate, descendentSort } from "../helpers";
 import {
   Container,
   InformationContainer,
   TableContainer,
-} from "../../styles/pages/character";
+} from "../styles/pages/character";
 
 export default function Character() {
   const [state] = useContext(UserSelection);
