@@ -1,6 +1,10 @@
+import darkdashboardImage from "../styles/img/starwars.jpg";
+import lightdashboardImage from "../styles/img/starwars-light.jpg";
+
 const darkTheme = {
   id: "00",
   name: "Dark Theme",
+  dashboardImage: darkdashboardImage,
   colors: {
     primary: "#010101",
     secondary: "#FFE81F",
@@ -22,6 +26,7 @@ const darkTheme = {
 const lightTheme = {
   id: "01",
   name: "Light Theme",
+  dashboardImage: lightdashboardImage,
   colors: {
     primary: "#F6F6F2",
     secondary: "#FFE81F",
