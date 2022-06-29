@@ -3,11 +3,18 @@ import { HeroImage } from "../HeroImage";
 import dashboardImageDark from "../../styles/img/starwars.jpg";
 import dashboardImageLight from '../../styles/img/starwars-light.jpg'
 import { SearchContainer, SearchInput, ContainerInput } from "./styles";
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
 export const Search = ({ setSearchTerm, searchTerm }) => {
   const theme = useContext(ThemeContext)
   const dashboardImage = (theme.id === "01") ? dashboardImageLight : dashboardImageDark
+
+  // Preload images
+  useEffect(() => {
+    [dashboardImageDark, dashboardImageLight].forEach((image) => {
+      new Image().src = image.src
+    })
+  }, [])
 
   return (
     <SearchContainer>
